@@ -1,0 +1,4 @@
+interface:
+  display_name: "学会任何知识"
+  short_description: "用学习阶梯、限时计划、逐题测验和费曼复述，把知识变成可验证的能力"
+  default_prompt: "使用 $learn-anything 帮我学习一个主题，先确定目标和当前水平，再开始适合我的学习流程。"
