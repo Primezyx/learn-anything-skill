@@ -1,0 +1,15 @@
+{
+  "name": "learn-anything-lesson",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "render": "remotion render index.jsx Lesson out/lesson.mp4 --codec=h264 --concurrency=2",
+    "still": "remotion still index.jsx Lesson out/check.png"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.409",
+    "remotion": "4.0.409",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  }
+}
