@@ -1,0 +1,13 @@
+import {build} from 'esbuild';
+import {readFile, mkdir, writeFile} from 'node:fs/promises';
+import {fileURLToPath} from 'node:url';
+const root = fileURLToPath(new URL('.', import.meta.url));
+const {outputFiles} = await build({absWorkingDir: root, entryPoints: ['index.jsx'], bundle: true, write: false, platform: 'browser', format: 'iife', target: 'es2020', minify: true, legalComments: 'inline', define: {'process.env.NODE_ENV': '"production"'}});
+const template = await readFile(new URL('page.html', import.meta.url), 'utf8');
+const marker = '<!-- INLINE_LESSON -->';
+if (template.split(marker).length !== 2) throw new Error('Missing or duplicate inline lesson marker');
+const script = outputFiles[0].text.replace(/<\/script/gi, '<\\/script');
+const html = template.replace(marker, () => '<script>' + script + '</script>');
+await mkdir(new URL('dist/', import.meta.url), {recursive: true});
+await writeFile(new URL('dist/lesson.html', import.meta.url), html, 'utf8');
+console.log('Built offline page: dist/lesson.html');
